@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+    Route,
+    Switch,
+    Redirect,
+    BrowserRouter as Router,
+} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { connect } from 'react-redux';
 
-export default App;
+import Login from './components/Login';
+import Repos from './components/Repos';
+import NoMatch from './components/NoMatch';
+
+
+const App = () => {
+    const ProtectedRoute = () => (
+        <Route
+            render={() => (
+                (localStorage.getItem('token') !== null && localStorage.getItem('token') !== '')
+                    ? <Repos />
+                    : <Redirect to="/login" />
+            )}
+        />
+    );
+
+    const PublicRoute = () => (
+        <Route
+            render={() => (
+                (localStorage.getItem('token') === null || localStorage.getItem('token') === '')
+                    ? <Login />
+                    : <Redirect to="/repos" />
+            )}
+        />
+    );
+
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/"><Redirect to="login" /></Route>
+                <PublicRoute path="/login" />
+                <ProtectedRoute path="/repos" />
+                <Route path="*" component={NoMatch} />
+            </Switch>
+        </Router>
+    );
+};
+
+const mapStateToProps = (state) => ({
+    ...state,
+});
+
+export default connect(mapStateToProps)(App);
