@@ -1,6 +1,6 @@
 const defaultState = {
     token: '',
-    signedIn: false,
+    user: '',
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -8,19 +8,16 @@ const authReducer = (state = defaultState, action) => {
 
     switch (action.type) {
     case 'SIGN_IN':
-        newState.token = action.payload;
-        newState.signedIn = true;
-        localStorage.setItem('token', action.payload);
+        newState.token = action.payload.credential.accessToken;
+        newState.user = action.payload.additionalUserInfo.username;
+        localStorage.setItem('token', newState.token);
+        localStorage.setItem('user', newState.user);
         return newState;
     case 'SIGN_OUT':
         newState.token = '';
-        newState.signedIn = false;
         localStorage.setItem('token', '');
+        localStorage.setItem('user', '');
         return newState;
-    // case 'VALIDATE':
-    //     // newState.heroesArray = action.payload;
-    //     // newState.requestPending = false;
-    //     return newState;
     default:
         return state;
     }
