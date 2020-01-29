@@ -8,9 +8,9 @@ import {
 
 import { connect } from 'react-redux';
 
-import Login from './components/Login';
-import Repos from './components/Repos';
-import NoMatch from './components/NoMatch';
+import Login from './views/Login';
+import Repos from './views/Repos';
+import NoMatch from './views/NoMatch';
 
 const App = () => {
     const ProtectedRoute = () => (

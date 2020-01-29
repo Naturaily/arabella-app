@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { signOut as signOutAction } from '../actions/authActions';
-import CreateRepositoryModal from './CreateRepositoryModal';
+import CreateRepositoryModal from '../components/CreateRepositoryModal';
 
 const Repos = ({ signOut, authReducer }) => {
     const [repositories, setRepos] = useState([]);

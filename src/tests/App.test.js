@@ -7,9 +7,9 @@ import { Provider } from 'react-redux';
 import store from '../store';
 
 import App from '../App';
-import Login from '../components/Login';
-import Repos from '../components/Repos';
-import NoMatch from '../components/NoMatch';
+import Login from '../views/Login';
+import Repos from '../views/Repos';
+import NoMatch from '../views/NoMatch';
 
 
 // mock BrowserRouter for initialEntries to work
