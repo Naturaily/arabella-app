@@ -18,7 +18,6 @@ const CreateRepositoryModal = ({ toggleModal, fetchRepos }) => {
         const token = localStorage.getItem('token');
 
         setRequestPending(true);
-        setError('');
 
         axios.post('https://api.github.com/user/repos', params, { headers: { Authorization: `Bearer ${token}` } })
             .then(() => {
@@ -53,6 +52,7 @@ const CreateRepositoryModal = ({ toggleModal, fetchRepos }) => {
         if (name === '') {
             setError('emptyField');
         } else {
+            setError('');
             sendForm();
         }
     };
