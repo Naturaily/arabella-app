@@ -20,6 +20,7 @@ const authReducer = (state = defaultState, action) => {
     case 'SIGN_OUT':
         newState.signOutError = false;
         newState.token = '';
+        newState.user = '';
         return newState;
     case 'SIGN_OUT_ERROR':
         newState.signOutError = true;
