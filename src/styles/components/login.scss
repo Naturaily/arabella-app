@@ -24,4 +24,7 @@
         @include standard-button;
         margin-top: 10px;
     }
+    &-error {
+        color: $error
+    }
 }

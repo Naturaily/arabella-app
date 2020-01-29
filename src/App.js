@@ -12,7 +12,6 @@ import Login from './components/Login';
 import Repos from './components/Repos';
 import NoMatch from './components/NoMatch';
 
-
 const App = () => {
     const ProtectedRoute = () => (
         <Route

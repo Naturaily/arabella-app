@@ -1,6 +1,9 @@
 .repos {
     margin: 20px;
     width: calc(100% - 40px);
+    &-error {
+        color: $error;
+    }
     > nav {
         display: flex;
         justify-content: space-between;

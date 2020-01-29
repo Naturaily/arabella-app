@@ -1,6 +1,8 @@
 const defaultState = {
     token: '',
     user: '',
+    signInError: false,
+    signOutError: false,
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -8,15 +10,19 @@ const authReducer = (state = defaultState, action) => {
 
     switch (action.type) {
     case 'SIGN_IN':
+        newState.signInError = false;
         newState.token = action.payload.credential.accessToken;
         newState.user = action.payload.additionalUserInfo.username;
-        localStorage.setItem('token', newState.token);
-        localStorage.setItem('user', newState.user);
+        return newState;
+    case 'SIGN_IN_ERROR':
+        newState.signInError = true;
         return newState;
     case 'SIGN_OUT':
+        newState.signOutError = false;
         newState.token = '';
-        localStorage.setItem('token', '');
-        localStorage.setItem('user', '');
+        return newState;
+    case 'SIGN_OUT_ERROR':
+        newState.signOutError = true;
         return newState;
     default:
         return state;

@@ -1,50 +1,57 @@
 import React, { useState } from 'react';
-
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-const Create = ({ closeModal, fetchRepos }) => {
+const CreateRepositoryModal = ({ toggleModal, fetchRepos }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [autoInit, setAutoInit] = useState(false);
     const [requestPending, setRequestPending] = useState(false);
-    const [nameEmptyError, setNameEmptyError] = useState(false);
-    const [nameCollisionError, setNameCollisionError] = useState(false);
-    const [unknownError, setUnknownError] = useState(false);
+    const [error, setError] = useState('');
 
     const sendForm = () => {
-        setRequestPending(true);
-        setUnknownError(false);
-        setNameCollisionError(false);
-        setNameEmptyError(false);
         const params = {
             name,
             description,
             auto_init: autoInit,
         };
         const token = localStorage.getItem('token');
+
+        setRequestPending(true);
+        setError('');
+
         axios.post('https://api.github.com/user/repos', params, { headers: { Authorization: `Bearer ${token}` } })
-            .then((result) => {
+            .then(() => {
                 setRequestPending(true);
-                closeModal();
+                toggleModal();
                 fetchRepos();
-                console.log(result);
             })
-            .catch((error) => {
-                if (error.response.status === 422) {
-                    setNameCollisionError(true);
+            .catch((err) => {
+                if (err.response.status === 422) {
+                    setError('nameCollision');
                 } else {
-                    setUnknownError(true);
+                    setError('unknown');
                 }
                 setRequestPending(false);
-                console.log({ error });
             });
+    };
+
+    const decodeError = () => {
+        switch (error) {
+        case 'unknown':
+            return 'something went wrong. Please, try again later';
+        case 'nameCollision':
+            return 'repository of that name already exists';
+        case 'emptyField':
+            return 'name can not be empty';
+        default:
+            return '';
+        }
     };
 
     const validate = () => {
         if (name === '') {
-            setNameCollisionError(false);
-            setUnknownError(false);
-            setNameEmptyError(true);
+            setError('emptyField');
         } else {
             sendForm();
         }
@@ -53,7 +60,7 @@ const Create = ({ closeModal, fetchRepos }) => {
     return (
         <section className="create">
             <div className="create-main">
-                <button type="button" onClick={closeModal} className="create-main-close" disabled={requestPending}>Close</button>
+                <button type="button" onClick={toggleModal} className="create-main-close" disabled={requestPending}>Close</button>
                 <h2>Create new public repository</h2>
                 <form className="create-main-form">
                     <p>
@@ -62,21 +69,9 @@ const Create = ({ closeModal, fetchRepos }) => {
                     </p>
                     <input type="text" onChange={(e) => setName(e.target.value)} value={name} />
                     {
-                        nameEmptyError
+                        error !== ''
                         && (
-                            <span className="create-main-form-error">Error - name can not be empty</span>
-                        )
-                    }
-                    {
-                        nameCollisionError
-                        && (
-                            <span className="create-main-form-error">Error - repository of that name already exists</span>
-                        )
-                    }
-                    {
-                        unknownError
-                        && (
-                            <span className="create-main-form-error">Error - something went wrong. Please, try again later</span>
+                            <span className="create-main-form-error">{`Error - ${decodeError()}`}</span>
                         )
                     }
                     <p>Description:</p>
@@ -97,4 +92,9 @@ const Create = ({ closeModal, fetchRepos }) => {
     );
 };
 
-export default Create;
+CreateRepositoryModal.propTypes = {
+    toggleModal: PropTypes.func.isRequired,
+    fetchRepos: PropTypes.func.isRequired,
+};
+
+export default CreateRepositoryModal;
