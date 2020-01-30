@@ -23,10 +23,9 @@ const Repos = ({ signOut, authReducer }) => {
         let repos = [];
         axios.get(`${baseURL}/user/repos`, { headers: { Authorization: `Bearer ${token}` } })
             .then((result) => {
-                repos = result.data;
-            })
-            .then(() => {
                 const promiesesArray = [];
+
+                repos = result.data;
                 repos.forEach((repo, index) => {
                     const repoPromise = axios.get(
                         `${baseURL}/repos/${user}/${repo.name}/commits`,
@@ -36,8 +35,8 @@ const Repos = ({ signOut, authReducer }) => {
                             },
                         },
                     )
-                        .then((result) => {
-                            repos[index].commits = result.data.length;
+                        .then((res) => {
+                            repos[index].commits = res.data.length;
                         })
                         .catch(() => {
                             repos[index].commits = 0;

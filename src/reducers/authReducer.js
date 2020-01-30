@@ -6,25 +6,35 @@ const defaultState = {
 };
 
 const authReducer = (state = defaultState, action) => {
-    const newState = JSON.parse(JSON.stringify(state));
-
     switch (action.type) {
     case 'SIGN_IN':
-        newState.signInError = false;
-        newState.token = action.payload.credential.accessToken;
-        newState.user = action.payload.additionalUserInfo.username;
-        return newState;
+        return {
+            ...state,
+            token: action.payload.credential.accessToken,
+            user: action.payload.additionalUserInfo.username,
+        };
     case 'SIGN_IN_ERROR':
-        newState.signInError = true;
-        return newState;
+        return {
+            ...state,
+            signInError: true,
+        };
     case 'SIGN_OUT':
-        newState.signOutError = false;
-        newState.token = '';
-        newState.user = '';
-        return newState;
+        return {
+            ...state,
+            token: '',
+            user: '',
+        };
     case 'SIGN_OUT_ERROR':
-        newState.signOutError = true;
-        return newState;
+        return {
+            ...state,
+            signOutError: true,
+        };
+    case 'RESET_ERRORS':
+        return {
+            ...state,
+            signInError: false,
+            signOutError: false,
+        };
     default:
         return state;
     }

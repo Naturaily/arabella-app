@@ -1,6 +1,9 @@
 import * as firebase from 'firebase';
 
 export const signIn = () => (dispatch) => {
+    dispatch({
+        type: 'RESET_ERRORS',
+    });
     const provider = new firebase.auth.GithubAuthProvider().addScope('repo');
     return firebase.auth().signInWithPopup(provider)
         .then((result) => {
@@ -18,6 +21,9 @@ export const signIn = () => (dispatch) => {
 };
 
 export const signOut = () => (dispatch) => {
+    dispatch({
+        type: 'RESET_ERRORS',
+    });
     return firebase.auth().signOut()
         .then(() => {
             localStorage.removeItem('token');
