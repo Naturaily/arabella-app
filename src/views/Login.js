@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { signIn as signInAction } from '../actions/authActions';
 
 import logo from '../assets/github-logo.png';
-// const logo = require('../assets/github-logo.png');
 
 const Login = ({ signIn, authReducer }) => {
     const { signInError } = authReducer;

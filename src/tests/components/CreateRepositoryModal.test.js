@@ -22,30 +22,6 @@ test('sendForm - on failure other than 422, error is set to unknown', () => {
     // check error state
 });
 
-test('decodeError - on unknown, proper message is returned', () => {
-    // mock error state
-    // run function
-    // check output
-});
-
-test('decodeError - on nameCollision, proper message is returned', () => {
-    // mock error state
-    // run function
-    // check output
-});
-
-test('decodeError - on emptyField, proper message is returned', () => {
-    // mock error state
-    // run function
-    // check output
-});
-
-test('decodeError - on default, proper message is returned', () => {
-    // mock error state
-    // run function
-    // check output
-});
-
 test('validate - if name is empty, error is set to emptyField', () => {
     // mock name state
     // run function
