@@ -4,7 +4,8 @@
 @import "./commons";
 @import "./mixins";
 
-@import "./components/login";
-@import "./components/nomatch";
-@import "./components/repos";
+@import "./views/login";
+@import "./views/nomatch";
+@import "./views/repos";
+
 @import "./components/create";

@@ -5,9 +5,9 @@
         "node": true
     },
     "rules": {
-        "indent": [2, 4],
-        "react/jsx-indent": [2, 4],
-        "react/jsx-indent-props": [2, 4],
+        "indent": [2, 2],
+        "react/jsx-indent": [2, 2],
+        "react/jsx-indent-props": [2, 2],
         "max-len": 0,
         "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
         "linebreak-style": 0,
@@ -23,6 +23,6 @@
         "jsx-a11y/no-noninteractive-element-interactions": "off",
         "no-case-declarations": "off",
         "jsx-a11y/no-onchange": "off"
-        // "react/require-default-props": "off"
+        // "react-hooks/exhaustive-deps": "off"
     }
   }

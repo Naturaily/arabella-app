@@ -1,16 +1,16 @@
 @mixin standard-button {
-    border: 1px solid $black;
-    padding: 10px;
-    color: $black;
+  border: 1px solid $black;
+  padding: 10px;
+  color: $black;
+  background-color: $white;
+  &:hover {
+    color: $white;
+    background-color: $black;
+  }
+  &:disabled {
     background-color: $white;
-    &:hover {
-        color: $white;
-        background-color: $black;
-    }
-    &:disabled {
-        background-color: $white;
-        color: $button-disabled;
-        border: 1px solid $button-disabled;
-        cursor: default;
-    }
+    color: $button-disabled;
+    border: 1px solid $button-disabled;
+    cursor: default;
+  }
 }

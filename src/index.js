@@ -13,8 +13,8 @@ import firebaseConfig from './helpers/firebase';
 firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root'),
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
 );
